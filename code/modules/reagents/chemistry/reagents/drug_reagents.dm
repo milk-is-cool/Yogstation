@@ -281,22 +281,16 @@
 
 /datum/reagent/drug/bath_salts/on_mob_metabolize(mob/living/L)
 	..()
-	
+	ADD_TRAIT(L, TRAIT_STUNIMMUNE, type)
 	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	if(iscarbon(L))
-		var/mob/living/carbon/human/H = L
+		var/mob/living/carbon/C = L
 		rage = new()
-		H.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
-		H.physiology.stun_mod *= 0.1
-		H.physiology.stamina_mod *= 0.2
+		C.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/reagent/drug/bath_salts/on_mob_end_metabolize(mob/living/L)
-
+	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
 	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.physiology.stun_mod *= 10	//Dividing by small numbers is scawy :(
-		H.physiology.stamina_mod *= 5
 	if(rage)
 		QDEL_NULL(rage)
 	..()
