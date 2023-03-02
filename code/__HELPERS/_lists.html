@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__HELPERS&#x2F;_lists.dm - Yogstation 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Yogstation 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__HELPERS/_lists.html#define">Define Details</a></header>
+<main>
+<h1>code/__HELPERS/_lists.dm 
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__HELPERS/_lists.html#define/LAZYACCESSASSOC">LAZYACCESSASSOC</a></th><td>Accesses an associative list, returns null if nothing is found</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/QDEL_LAZYLIST">QDEL_LAZYLIST</a></th><td>Qdel every item in the list before setting the list to null</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/LAZYCOPY">LAZYCOPY</a></th><td>Use LAZYLISTDUPLICATE instead if you want it to null with no entries</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/LAZYCLEARLIST">LAZYCLEARLIST</a></th><td>Consider LAZYNULL instead</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/SANITIZE_LIST">SANITIZE_LIST</a></th><td>Returns the list if it's actually a valid list, otherwise will initialize it</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/COMPARE_KEY">COMPARE_KEY</a></th><td>Passed into BINARY_INSERT to compare keys</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/COMPARE_VALUE">COMPARE_VALUE</a></th><td>Passed into BINARY_INSERT to compare values</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/BINARY_INSERT">BINARY_INSERT</a></th><td>Binary search sorted insert
+INPUT: Object to be inserted
+LIST: List to insert object into
+TYPECONT: The typepath of the contents of the list
+COMPARE: The object to compare against, usualy the same as INPUT
+COMPARISON: The variable on the objects to compare
+COMPTYPE: How should the values be compared? Either COMPARE_KEY or COMPARE_VALUE.</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/BINARY_INSERT_PROC_COMPARE">BINARY_INSERT_PROC_COMPARE</a></th><td>Custom binary search sorted insert utilising comparison procs instead of vars.
+INPUT: Object to be inserted
+LIST: List to insert object into
+TYPECONT: The typepath of the contents of the list
+COMPARE: The object to compare against, usualy the same as INPUT
+COMPARISON: The plaintext name of a proc on INPUT that takes a single argument to accept a single element from LIST and returns a positive, negative or zero number to perform a comparison.
+COMPTYPE: How should the values be compared? Either COMPARE_KEY or COMPARE_VALUE.</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/BINARY_INSERT_DEFINE">BINARY_INSERT_DEFINE</a></th><td>Even more custom binary search sorted insert, using defines instead of vars
+INPUT: Item to be inserted
+LIST: List to insert INPUT into
+TYPECONT: A define setting the var to the typepath of the contents of the list
+COMPARE: The item to compare against, usualy the same as INPUT
+COMPARISON: A define that takes an item to compare as input, and returns their comparable value
+COMPTYPE: How should the list be compared? Either COMPARE_KEY or COMPARE_VALUE.</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/english_list">english_list</a></th>
+                <td>Returns a list in plain english as a string</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/listgetindex">listgetindex</a></th>
+                <td>Returns list element or null. Should prevent &quot;index out of bounds&quot; error.</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/safepick">safepick</a></th>
+                <td>Return either pick(list) or null if list is not of type /list or is empty</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/isemptylist">isemptylist</a></th>
+                <td>Checks if the list is empty</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/is_type_in_list">is_type_in_list</a></th>
+                <td>Checks for specific types in a list</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/is_type_in_typecache">is_type_in_typecache</a></th><td>Checks for specific types in specifically structured (Assoc &quot;type&quot; = TRUE) lists ('typecaches')</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/is_string_in_list">is_string_in_list</a></th>
+                <td>Checks for a string in a list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/remove_strings_from_list">remove_strings_from_list</a></th>
+                <td>Removes a string from a list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/typecache_filter_list">typecache_filter_list</a></th>
+                <td>returns a new list with only atoms that are in typecache L</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/typecache_filter_list_reverse">typecache_filter_list_reverse</a></th>
+                <td>returns a new list with only atoms that are not in typecache L</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/typecacheof">typecacheof</a></th>
+                <td>Like typesof() or subtypesof(), but returns a typecache instead of a list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/clearlist">clearlist</a></th>
+                <td>Empties the list by setting the length to 0. Hopefully the elements get garbage collected</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/expand_weights">expand_weights</a></th>
+                <td>Takes a weighted list (see above) and expands it into raw entries
+This eats more memory, but saves time when actually picking from it</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/greatest_common_factor">greatest_common_factor</a></th>
+                <td>Takes a list of numbers as input, returns the highest value that is cleanly divides them all
+Note: this implementation is expensive as heck for large numbers, I only use it because most of my usecase
+Is &lt; 10 ints</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/pick_n_take">pick_n_take</a></th>
+                <td>Pick a random element from the list and remove it from the list.</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/pop">pop</a></th>
+                <td>Returns the top(last) element from the list and removes it from the list (typical stack function)</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/popleft">popleft</a></th>
+                <td>Returns the bottom(first) element from the list and removes it from the list (typical stack function)</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/next_list_item">next_list_item</a></th>
+                <td>Returns the next item in a list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/previous_list_item">previous_list_item</a></th>
+                <td>Returns the previous item in a list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/shuffle">shuffle</a></th>
+                <td>Randomize: Return the list in a random order</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/shuffle_inplace">shuffle_inplace</a></th>
+                <td>Same as shuffle, but returns nothing and acts on list in place</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/uniqueList">uniqueList</a></th>
+                <td>Returns a list without duplicate entrys</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/sortKey">sortKey</a></th>
+                <td>Sort a list by CKEY</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/sortRecord">sortRecord</a></th>
+                <td>Sort datum records in a list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/bitfield2list">bitfield2list</a></th>
+                <td>Converts a bitfield to a list of numbers (or words if a wordlist is provided)</td></tr>
+        <tr><th><a href="code/__HELPERS/_lists.html#define/KEYBYINDEX">KEYBYINDEX</a></th><td>Returns the key based on the index</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/find_record">find_record</a></th>
+                <td>Find a datum record from a list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/removeNullsFromList">removeNullsFromList</a></th>
+                <td>remove all nulls from a list</td></tr>
+        <tr><th>/proc/<a href="global.html#proc/assoc_to_keys">assoc_to_keys</a></th>
+                <td>Turns an associative list into a flat list of keys</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/BINARY_INSERT"><aside class="declaration">#define </aside>BINARY_INSERT
+            <aside>(INPUT, LIST, TYPECONT, COMPARE, COMPARISON, COMPTYPE)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 50"/></a>
+    </h3>
+    <p>Binary search sorted insert
+INPUT: Object to be inserted
+LIST: List to insert object into
+TYPECONT: The typepath of the contents of the list
+COMPARE: The object to compare against, usualy the same as INPUT
+COMPARISON: The variable on the objects to compare
+COMPTYPE: How should the values be compared? Either COMPARE_KEY or COMPARE_VALUE.</p><h3 id="define/BINARY_INSERT_DEFINE"><aside class="declaration">#define </aside>BINARY_INSERT_DEFINE
+            <aside>(INPUT, LIST, TYPECONT, COMPARE, COMPARISON, COMPTYPE)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L123">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 123"/></a>
+    </h3>
+    <p>Even more custom binary search sorted insert, using defines instead of vars
+INPUT: Item to be inserted
+LIST: List to insert INPUT into
+TYPECONT: A define setting the var to the typepath of the contents of the list
+COMPARE: The item to compare against, usualy the same as INPUT
+COMPARISON: A define that takes an item to compare as input, and returns their comparable value
+COMPTYPE: How should the list be compared? Either COMPARE_KEY or COMPARE_VALUE.</p><h3 id="define/BINARY_INSERT_PROC_COMPARE"><aside class="declaration">#define </aside>BINARY_INSERT_PROC_COMPARE
+            <aside>(INPUT, LIST, TYPECONT, COMPARE, COMPARISON, COMPTYPE)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L85">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 85"/></a>
+    </h3>
+    <p>Custom binary search sorted insert utilising comparison procs instead of vars.
+INPUT: Object to be inserted
+LIST: List to insert object into
+TYPECONT: The typepath of the contents of the list
+COMPARE: The object to compare against, usualy the same as INPUT
+COMPARISON: The plaintext name of a proc on INPUT that takes a single argument to accept a single element from LIST and returns a positive, negative or zero number to perform a comparison.
+COMPTYPE: How should the values be compared? Either COMPARE_KEY or COMPARE_VALUE.</p><h3 id="define/COMPARE_KEY"><aside class="declaration">#define </aside>COMPARE_KEY
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 37"/></a>
+    </h3>
+    <p>Passed into BINARY_INSERT to compare keys</p><h3 id="define/COMPARE_VALUE"><aside class="declaration">#define </aside>COMPARE_VALUE
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 39"/></a>
+    </h3>
+    <p>Passed into BINARY_INSERT to compare values</p><h3 id="define/KEYBYINDEX"><aside class="declaration">#define </aside>KEYBYINDEX
+            <aside>(L, index)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L514">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 514"/></a>
+    </h3>
+    <p>Returns the key based on the index</p><h3 id="define/LAZYACCESSASSOC"><aside class="declaration">#define </aside>LAZYACCESSASSOC
+            <aside>(L, I, K)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 22"/></a>
+    </h3>
+    <p>Accesses an associative list, returns null if nothing is found</p><h3 id="define/LAZYCLEARLIST"><aside class="declaration">#define </aside>LAZYCLEARLIST
+            <aside>(L)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 29"/></a>
+    </h3>
+    <p>Consider LAZYNULL instead</p><h3 id="define/LAZYCOPY"><aside class="declaration">#define </aside>LAZYCOPY
+            <aside>(L)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 27"/></a>
+    </h3>
+    <p>Use LAZYLISTDUPLICATE instead if you want it to null with no entries</p><h3 id="define/QDEL_LAZYLIST"><aside class="declaration">#define </aside>QDEL_LAZYLIST
+            <aside>(L)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 24"/></a>
+    </h3>
+    <p>Qdel every item in the list before setting the list to null</p><h3 id="define/SANITIZE_LIST"><aside class="declaration">#define </aside>SANITIZE_LIST
+            <aside>(L)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 31"/></a>
+    </h3>
+    <p>Returns the list if it's actually a valid list, otherwise will initialize it</p><h3 id="define/is_type_in_typecache"><aside class="declaration">#define </aside>is_type_in_typecache
+            <aside>(A, L)</aside>
+            <a href="https://github.com/milk-is-cool/Yogstation/blob/a3bbd62887ca7491e8d42146bb7539b6e00007fb/code/__HELPERS/_lists.dm#L201">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_lists.dm 201"/></a>
+    </h3>
+    <p>Checks for specific types in specifically structured (Assoc &quot;type&quot; = TRUE) lists ('typecaches')</p></main>
+<footer>
+    yogstation.dme
+    <a href="https://github.com/milk-is-cool/Yogstation/tree/a3bbd62887ca7491e8d42146bb7539b6e00007fb">a3bbd62</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>
